@@ -1,12 +1,12 @@
 Gem::Specification.new do |s|
-  s.name        = "rspec_junit_formatter"
-  s.version     = "0.4.1"
+  s.name        = "rspec_junit_formatter_fork"
+  s.version     = "0.4.2"
   s.platform    = Gem::Platform::RUBY
   s.author      = "Samuel Cochran"
   s.email       = "sj26@sj26.com"
   s.homepage    = "http://github.com/sj26/rspec_junit_formatter"
-  s.summary     = "RSpec JUnit XML formatter"
-  s.description = "RSpec results that your continuous integration service can read."
+  s.summary     = "[FORK] RSpec JUnit XML formatter"
+  s.description = "[FORK] RSpec results that your continuous integration service can read. Tested for compatibility with Pipeline bitbucket."
   s.license     = "MIT"
 
   s.required_ruby_version = ">= 2.0.0"
