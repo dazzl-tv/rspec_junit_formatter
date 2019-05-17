@@ -1,8 +1,13 @@
+# frozen_string_literal: true
+
+# rubocop:disable Metrics/ClassLength
+
+# Creator dump xml for RSpec 3
 class RSpecJUnitFormatter < RSpec::Core::Formatters::BaseFormatter
   RSpec::Core::Formatters.register self,
-    :start,
-    :stop,
-    :dump_summary
+                                   :start,
+                                   :stop,
+                                   :dump_summary
 
   def start(notification)
     @start_notification = notification
@@ -19,7 +24,7 @@ class RSpecJUnitFormatter < RSpec::Core::Formatters::BaseFormatter
     without_color { xml_dump }
   end
 
-private
+  private
 
   attr_reader :started
 
@@ -49,19 +54,15 @@ private
 
   def example_group_file_path_for(notification)
     metadata = notification.example.metadata[:example_group]
-    while parent_metadata = metadata[:parent_example_group]
+    while parent_metadata == metadata[:parent_example_group]
       metadata = parent_metadata
     end
     metadata[:file_path]
   end
 
-  def line_number_for(notification)
-    notification.example.metadata[:line_number]
-  end
-
   def classname_for(notification)
     fp = example_group_file_path_for(notification)
-    fp.sub(%r{\.[^/]*\Z}, "").gsub("/", ".").gsub(%r{\A\.+|\.+\Z}, "")
+    fp.sub(%r{\.[^/]*\Z}, '').tr('/', '.').gsub(/\A\.+|\.+\Z/, '')
   end
 
   def duration_for(notification)
@@ -81,7 +82,8 @@ private
   end
 
   def failure_for(notification)
-    strip_diff_colors(notification.message_lines.join("\n")) << "\n" << notification.formatted_backtrace.join("\n")
+    strip_diff_colors(notification.message_lines.join("\n")) << \
+      "\n" << notification.formatted_backtrace.join("\n")
   end
 
   def exception_for(notification)
@@ -95,18 +97,27 @@ private
   def swap_rspec_configuration(key, value)
     unset = Object.new
     force = RSpec.configuration.send(:value_for, key) { unset }
+    previous = check_swap(key, value, force, unset)
+    yield
+  ensure
+    ensure_swap(key, force, previous)
+  end
+
+  def check_swap(key, value, force, unset)
     if unset.equal?(force)
       previous = RSpec.configuration.send(key)
       RSpec.configuration.send(:"#{key}=", value)
     else
-      RSpec.configuration.force({key => value})
+      RSpec.configuration.force(key => value)
     end
-    yield
-  ensure
+    previous
+  end
+
+  def ensure_swap(key, force)
     if unset.equal?(force)
       RSpec.configuration.send(:"#{key}=", previous)
     else
-      RSpec.configuration.force({key => force})
+      RSpec.configuration.force(key => force)
     end
   end
 
@@ -121,7 +132,8 @@ private
       swap_rspec_configuration(:color, false, &block)
     end
   else
-    warn 'rspec_junit_formatter cannot prevent colorising due to an unexpected RSpec.configuration format'
+    warn 'rspec_junit_formatter cannot prevent colorising due ' \
+         'to an unexpected RSpec.configuration format'
     def without_color
       yield
     end
@@ -138,14 +150,20 @@ end
 
 # rspec-core 3.0.x forgot to mark this as a module function which causes:
 #
-#   NoMethodError: undefined method `wrap' for RSpec::Core::Notifications::NullColorizer:Class
-#     .../rspec-core-3.0.4/lib/rspec/core/notifications.rb:229:in `add_shared_group_line'
-#     .../rspec-core-3.0.4/lib/rspec/core/notifications.rb:157:in `message_lines'
+#   NoMethodError: undefined method `wrap' for
+#   RSpec::Core::Notifications::NullColorizer:Class
+#     .../rspec-core-3.0.4/lib/rspec/core/notifications.rb:229:in
+#       `add_shared_group_line'
+#     .../rspec-core-3.0.4/lib/rspec/core/notifications.rb:157:in
+#       `message_lines'
 #
-if defined?(RSpec::Core::Notifications::NullColorizer) && RSpec::Core::Notifications::NullColorizer.is_a?(Class) && !RSpec::Core::Notifications::NullColorizer.respond_to?(:wrap)
+if defined?(RSpec::Core::Notifications::NullColorizer) &&
+   RSpec::Core::Notifications::NullColorizer.is_a?(Class) &&
+   !RSpec::Core::Notifications::NullColorizer.respond_to?(:wrap)
   RSpec::Core::Notifications::NullColorizer.class_eval do
     def self.wrap(*args)
       new.wrap(*args)
     end
   end
 end
+# rubocop:enable Metrics/ClassLength

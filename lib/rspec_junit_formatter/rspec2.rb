@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Creator dump xml for RSpec 2
 class RSpecJUnitFormatter < RSpec::Core::Formatters::BaseFormatter
   attr_reader :started
 
@@ -11,7 +14,7 @@ class RSpecJUnitFormatter < RSpec::Core::Formatters::BaseFormatter
     xml_dump
   end
 
-private
+  private
 
   def result_of(example)
     example.execution_result[:status].to_sym
@@ -19,23 +22,13 @@ private
 
   def example_group_file_path_for(example)
     meta = example.metadata
-    while meta[:example_group]
-      meta = meta[:example_group]
-    end
+    meta = meta[:example_group] while meta[:example_group]
     meta[:file_path]
-  end
-
-  def line_number_for(example)
-    meta = example.metadata
-    while meta[:example_group]
-      meta = meta[:example_group]
-    end
-    meta[:line_number]
   end
 
   def classname_for(example)
     fp = example_group_file_path_for(example)
-    fp.sub(%r{\.[^/.]+\Z}, "").gsub("/", ".").gsub(/\A\.+|\.+\Z/, "")
+    fp.sub(%r{\.[^/.]+\Z}, '').tr('/', '.').gsub(/\A\.+|\.+\Z/, '')
   end
 
   def duration_for(example)
@@ -63,15 +56,24 @@ private
     message   = strip_diff_colors(exception.message)
     backtrace = format_backtrace(exception.backtrace, example)
 
-    if shared_group = find_shared_group(example)
-      backtrace << "Shared Example Group: \"#{shared_group.metadata[:shared_group_name]}\" called from #{shared_group.metadata[:example_group][:location]}"
+    if shared_group == find_shared_group(example)
+      backtrace << backtrace_complete(shared_group)
     end
 
     "#{message}\n#{backtrace.join("\n")}"
   end
 
+  def backtrace_complete(shared_group)
+    'Shared Example Group: \\' +
+      shared_group.metadata[:shared_group_name] +
+      ' called from ' +
+      shared_group.metadata[:example_group][:location]
+  end
+
   def find_shared_group(example)
-    group_and_parent_groups(example).find { |group| group.metadata[:shared_group_name] }
+    group_and_parent_groups(example).find do |group|
+      group.metadata[:shared_group_name]
+    end
   end
 
   def group_and_parent_groups(example)
