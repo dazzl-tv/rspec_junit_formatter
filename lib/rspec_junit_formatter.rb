@@ -18,7 +18,7 @@ class RSpecJUnitFormatter < RSpec::Core::Formatters::BaseFormatter
 
   def xml_dump
     output << %(<?xml version="1.0" encoding="UTF-8"?>\n)
-    output << %(<testsuite)
+    output << %(<test-suite)
     output << %( name="rspec#{escape(ENV['TEST_ENV_NUMBER'].to_s)}")
     output << %( tests="#{example_count}")
     output << %( skipped="#{pending_count}")
@@ -35,7 +35,7 @@ class RSpecJUnitFormatter < RSpec::Core::Formatters::BaseFormatter
     output << %(/>\n)
     output << %(</properties>\n)
     xml_dump_examples
-    output << %(</testsuite>\n)
+    output << %(</test-suite>\n)
   end
 
   def xml_dump_examples
@@ -69,7 +69,7 @@ class RSpecJUnitFormatter < RSpec::Core::Formatters::BaseFormatter
   end
 
   def xml_dump_example(example)
-    output << %(<testcase)
+    output << %(<test-case)
     output << %( classname="#{escape(classname_for(example))}")
     output << %( name="#{escape(description_for(example))}")
     output << %( file="#{escape(example_group_file_path_for(example))}")
@@ -77,7 +77,7 @@ class RSpecJUnitFormatter < RSpec::Core::Formatters::BaseFormatter
     output << %(>)
     yield if block_given?
     xml_dump_output(example)
-    output << %(</testcase>\n)
+    output << %(</test-case>\n)
   end
 
   def xml_dump_output(example)
