@@ -30,7 +30,7 @@ module RspecJunitFormatterBitbucket
 
     def testsuite_attr
       <<~TESTSUITE
-        name="rspec#{Format.escape(ENV['TEST_ENV_NUMBER'].to_s)}">>
+        name="rspec#{Format.escape(ENV['TEST_ENV_NUMBER'].to_s)}"
         tests="#{@test.example_count}"
         skipped="#{@test.pending_count}"
         failures="#{@test.failure_count}"
@@ -72,7 +72,7 @@ module RspecJunitFormatterBitbucket
     end
 
     def dump_example(example)
-      @output << %(<test-case)
+      @output << %(<test-case )
       @output << testcase_attr(example)
       @output << %(>)
       yield if block_given?
