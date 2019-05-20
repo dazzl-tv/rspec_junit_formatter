@@ -1,13 +1,20 @@
 language: ruby
 sudo: false
-cache: bundler
+
+cache:
+  bundler: true
+  directories:
+    - /home/travis/.rvm
+    - /usr/local/bundle
+
 rvm:
+  - 2.6
   - 2.5
   - 2.4
   - 2.3
   - 2.2
+
 gemfile:
-  - gemfiles/rspec_2_x.gemfile
   - gemfiles/rspec_3_0.gemfile
   - gemfiles/rspec_3_1.gemfile
   - gemfiles/rspec_3_2.gemfile
@@ -16,4 +23,6 @@ gemfile:
   - gemfiles/rspec_3_5.gemfile
   - gemfiles/rspec_3_6.gemfile
   - gemfiles/rspec_3_7.gemfile
+  - gemfiles/rspec_3_8.gemfile
+
 script: bundle exec rspec
