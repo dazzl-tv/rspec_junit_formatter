@@ -1,5 +1,9 @@
 # RSpec JUnit Formatter
 
+__FORK to project : [sj26](https://github.com/sj26/rspec_junit_formatter)__
+
+Use for pipeline bitbucket. Apply rules : http://reflex.gforge.inria.fr/xunit.html#xunitReport
+
 [![Build results](http://img.shields.io/travis/sj26/rspec_junit_formatter/master.svg)](https://travis-ci.org/sj26/rspec_junit_formatter) 
 [![Gem version](http://img.shields.io/gem/v/rspec_junit_formatter.svg)](https://rubygems.org/gems/rspec_junit_formatter)
 
