@@ -7,7 +7,9 @@ describe RspecJunitFormatterBitbucket do
     around do |example|
       ENV['TEST_ENV_NUMBER'] = '42'
       example.call
-    ensure
+    end
+
+    after do
       ENV.delete('TEST_ENV_NUMBER')
     end
 
