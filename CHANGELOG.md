@@ -10,6 +10,8 @@ The format is based on [Keep a Changelog] and this project adheres to [Semantic 
 ## [0.2.0] - 2019-05-21
 ### Fixed
 - Deployment with travis
+- Required ruby version 2.4
+- Use suffix version for all branch except master
 
 ## [0.1.0] - 2019-05-17
 ### Removed
