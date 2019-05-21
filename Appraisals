@@ -1,10 +1,5 @@
 # frozen_string_literal: true
 
-appraise 'rspec-2-x' do
-  gem 'rspec', '~> 2.14', '< 2.99'
-  gem 'rake', '~> 10.0' # Rake.last_comment
-end
-
 appraise 'rspec-3-0' do
   gem 'rspec', '~> 3.0.0'
   gem 'rake', '~> 10.0' # Rake.last_comment
@@ -39,4 +34,8 @@ end
 
 appraise 'rspec-3-7' do
   gem 'rspec', '~> 3.7.0'
+end
+
+appraise 'rspec-3-8' do
+  gem 'rspec', '~> 3.8.0'
 end
