@@ -27,6 +27,7 @@ before_install:
   - gem install bundler -v '< 2'
 
 script:
+  - bundle install
   - bundle exec rspec -f d
   - if [ "$TRAVIS_BRANCH" == "master" ]; then bundle exec rubocop -D; fi
 
