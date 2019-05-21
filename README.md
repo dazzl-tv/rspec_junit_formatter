@@ -1,42 +1,39 @@
-# RSpec JUnit Formatter
+# RSpec JUnit Formatter | [![Build Status](https://travis-ci.org/dazzl-tv/rspec_junit_formatter.svg?branch=master)](https://travis-ci.org/dazzl-tv/rspec_junit_formatter) [![Gem Version](https://badge.fury.io/rb/rspec_junit_formatter_bitbucket.svg)](https://badge.fury.io/rb/rspec_junit_formatter_bitbucket)
 
 __FORK to project : [sj26](https://github.com/sj26/rspec_junit_formatter)__
 
 Use for pipeline bitbucket. Apply rules : http://reflex.gforge.inria.fr/xunit.html#xunitReport
 
-[![Build results](http://img.shields.io/travis/sj26/rspec_junit_formatter/master.svg)](https://travis-ci.org/sj26/rspec_junit_formatter) 
-[![Gem version](http://img.shields.io/gem/v/rspec_junit_formatter.svg)](https://rubygems.org/gems/rspec_junit_formatter)
-
-[RSpec][rspec] 2 & 3 results that your CI can read. [Jenkins][jenkins-junit], [Buildkite][buildkite-junit], [CircleCI][circleci-junit], and probably more, too.
-
-  [rspec]: http://rspec.info/
-  [jenkins-junit]: https://jenkins.io/doc/pipeline/steps/junit/
-  [buildkite-junit]: https://github.com/buildkite/rspec-junit-example
-  [circleci-junit]: https://circleci.com/docs/2.0/collect-test-data/
+Rspec 3 (remove rspec 2 compatibility) that your CI (Forked for Bitbucket pipeline).
 
 ## Usage
 
 Install the gem:
 
 ```sh
-gem install rspec_junit_formatter
+gem install rspec_junit_formatter_bitbucket
 ```
 
 Use it:
 
 ```sh
-rspec --format RspecJunitFormatter --out rspec.xml
+# Use RSpec directly
+rspec --format JUnit --out ./tmp/test-reports/rspec/report.xml
+
+# use with bundle
+export SPEC_OPTS=" --require rspec_junit_formatter_bitbucket --format RspecJunitFormatterBitbucket::Init --out ./tmp/test-reports/rspec/report.xml"
+bundle exec rake spec
 ```
 
-You'll get an XML file `rspec.xml` with your results in it.
+You'll get an XML file `report.xml` with your results in it.
 
 You can use it in combination with other [formatters][rspec-formatters], too:
 
 ```sh
-rspec --format progress --format RspecJunitFormatter --out rspec.xml
+rspec --format progress --format RspecJunitFormatterBitbucket::Init --out rspec.xml
 ```
 
-  [rspec-formatters]: https://relishapp.com/rspec/rspec-core/v/3-6/docs/formatters
+  [rspec-formatters]: https://relishapp.com/rspec/rspec-core/v/3-8/docs/formatters/custom-formatters
 
 ### Using in your project with Bundler
 
@@ -45,14 +42,14 @@ Add it to your Gemfile if you're using [Bundler][bundler]. Put it in the same gr
 ```ruby
 group :test do
   gem "rspec"
-  gem "rspec_junit_formatter"
+  gem "rspec_junit_formatter_bitbucket"
 end
 ```
 
 Put the same arguments as the commands above in [your `.rspec`][rspec-file]:
 
 ```sh
---format RspecJunitFormatter
+--format RspecJunitFormatterBitbucket::Init
 --out rspec.xml
 ```
   [bundler]: https://bundler.io
@@ -99,19 +96,11 @@ end
 
   [xml-charsets]: https://www.w3.org/TR/xml/#charsets
 
-## Roadmap
-
- * It would be nice to split things up into individual test suites, although would this correspond to example groups? The subject? The spec file? Not sure yet.
-
 ## Development
 
 Run the specs with `bundle exec rake`, which uses [Appraisal][appraisal] to run the specs against all supported versions of rspec.
 
   [appraisal]: https://github.com/thoughtbot/appraisal
-
-## Releasing
-
-Bump the gem version in the gemspec, and commit. Then `bundle exec rake build` to build a gem package, `bundle exec rake install` to install and test it locally, then `bundle exec rake release` to tag and push the commits and gem.
 
 ## License
 
@@ -119,8 +108,4 @@ The MIT License, see [LICENSE](./LICENSE).
 
 ## Thanks
 
-Inspired by the work of [Diego Souza][dgvncsz0f] on [RSpec Formatters][dgvncsz0f/rspec_formatters] after frustration with [CI Reporter][ci_reporter].
-
-  [dgvncsz0f]: https://github.com/dgvncsz0f
-  [dgvncsz0f/rspec_formatters]: https://github.com/dgvncsz0f/rspec_formatters
-  [ci_reporter]: https://github.com/nicksieger/ci_reporter
+And thanks [sj26](https://github.com/sj26)
