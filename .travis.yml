@@ -24,10 +24,8 @@ gemfile:
   - gemfiles/rspec_3_7.gemfile
   - gemfiles/rspec_3_8.gemfile
 
-install:
+script:
   - bundle update --bundler
   - gem install bundler -v 1.17.3
-
-script:
   - bundle exec rspec -f d
   - if [ "$TRAVIS_BRANCH" == "master" ]; then bundle exec rubocop -D; fi
