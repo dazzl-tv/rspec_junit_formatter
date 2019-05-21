@@ -3,20 +3,30 @@
 require 'spec_helper'
 require_relative 'shared_examples'
 
-describe 'some example specs' do
-  it 'should succeed' do
-    expect(true).to be(true)
+describe 'JUnit example specs' do
+  context 'when success' do
+    let(:base) { true }
+    let(:output) { true }
+
+    it 'succeeds' do
+      expect(base).to be(output)
+    end
   end
 
-  it 'should fail' do
-    expect(false).to be(true)
+  context 'when failed' do
+    let(:base) { false }
+    let(:output) { true }
+
+    it 'fails' do
+      expect(base).to be(output)
+    end
   end
 
-  it 'should raise' do
+  it 'raises' do
     raise ArgumentError
   end
 
-  it 'should be pending' do
+  it 'is pending' do
     if defined? skip
       skip
     else
@@ -24,30 +34,55 @@ describe 'some example specs' do
     end
   end
 
-  it 'shows diffs cleanly' do
-    expect({a: 'b', c: 'd'}).to eql({a: 2, c: 4})
+  context 'when diff' do
+    let(:base) { { a: 'b', c: 'd' } }
+    let(:output) { { a: 2, c: 4 } }
+
+    it 'shows diffs cleanly' do
+      expect(base).to eql(output)
+    end
   end
 
-  it 'replaces naughty \0 and \e characters, \x01 and \uFFFF too' do
-    expect('\0\0\0').to eql('emergency services')
+  context 'when \characters' do
+    let(:base) { '\0\0\0' }
+    let(:output) { 'emergency services' }
+
+    it 'replaces naughty \0 and \e characters, \x01 and \uFFFF too' do
+      expect(base).to eql(output)
+    end
   end
 
-  it 'escapes controlling \u{7f} characters' do
-    expect('\u{7f}').to eql('pacman om nom nom')
+  context 'when pacman character' do
+    let(:base) { '\u{7f}' }
+    let(:output) { 'pacman om nom nom' }
+
+    it 'escapes controlling \u{7f} characters' do
+      expect(base).to eql(output)
+    end
   end
 
-  it 'can include unicodes 😁' do
-    expect('🚀').to eql('🔥')
+  context 'when unicode character' do
+    let(:base) { '🚀' }
+    let(:output) { '🔥' }
+
+    it 'can include unicodes 😁' do
+      expect(base).to eql(output)
+    end
   end
 
-  it %{escapes <html tags='correctly' and='such &amp; such'>} do
-    expect('<p>This is important</p>').to eql('<p>This is <strong>very</strong> important</p>')
+  context 'when HTML character' do
+    let(:base) { '<p>This is important</p>' }
+    let(:output) { '<p>This is <strong>very</strong> important</p>' }
+
+    it %(escapes <html tags='correctly' and='such &amp; such'>) do
+      expect(base).to eql(output)
+    end
   end
 
-  it_should_behave_like 'shared examples'
+  it_behaves_like 'shared examples'
 
   it 'can capture stdout and stderr' do
     $stdout.puts 'Test'
-    $stderr.puts 'Bar'
+    warn 'Bar'
   end
 end

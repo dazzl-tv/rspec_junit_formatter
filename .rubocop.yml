@@ -1,3 +1,20 @@
 ---
 
 require: rubocop-rspec
+
+
+# Metrics
+Metrics/BlockLength:
+  Exclude:
+    - example/**/*
+    - spec/**/*
+
+Metrics/LineLength:
+  Exclude:
+    - example/**/*
+    - spec/**/*
+
+# RSpec
+RSpec/DescribeClass:
+  Exclude:
+    - example/**/*
