@@ -25,7 +25,6 @@ gemfile:
 before_install:
   - gem uninstall -v '>= 2' -i $(rvm gemdir)@global -ax bundler || true
   - gem install bundler -v '< 2'
-  - rm Gemfile.lock
 
 script:
   - bundle exec rspec -f d
