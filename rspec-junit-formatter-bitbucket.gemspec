@@ -6,6 +6,8 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'rspec_junit_formatter_bitbucket/info'
 
 Gem::Specification.new do |s|
+  version = RspecJunitFormatterBitbucket::Info::VERSION
+
   s.name        = RspecJunitFormatterBitbucket::Info::GEM_NAME
   s.version     = if ENV['TRAVIS'] && !ENV['TRAVIS_BRANCH'].eql?('master')
                     "#{version}-#{ENV['TRAVIS_BUILD_NUMBER']}"
