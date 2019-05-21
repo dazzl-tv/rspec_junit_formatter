@@ -23,7 +23,6 @@ gemfile:
   - gemfiles/rspec_3_8.gemfile
 
 before_install:
-  - bundle update --bundler
   - gem install bundler -v 1.17.3
 
 script:
