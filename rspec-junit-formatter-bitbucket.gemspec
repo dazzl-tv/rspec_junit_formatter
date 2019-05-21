@@ -27,7 +27,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rake', '~> 12.3', '>= 12.3.2'
   s.add_development_dependency 'coderay', '~> 1.1', '>= 1.1.2'
   s.add_development_dependency 'pry', '~> 0.12.2'
-  s.add_development_dependency 'rubocop'
+  s.add_development_dependency 'rubocop', '~> 0.69.0'
   s.add_development_dependency 'rubocop-rspec', '~> 1.33'
 
   s.files         = Dir['lib/**/*', 'README.md', 'LICENSE']
