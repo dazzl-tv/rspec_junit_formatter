@@ -4,7 +4,7 @@
 module RspecJunitFormatterBitbucket
   module Info
     # Define version
-    VERSION = '0.1.0'
+    VERSION = '0.2.0'
 
     # Define Name
     GEM_NAME = 'rspec_junit_formatter_bitbucket'
