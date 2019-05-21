@@ -25,11 +25,11 @@ gemfile:
 before_install:
   - gem uninstall -v '>= 2' -i $(rvm gemdir)@global -ax bundler || true
   - gem install bundler -v '< 2'
+  - rm Gemfile.lock
 
 script:
   - bundle exec rspec -f d
   - if [ "$TRAVIS_BRANCH" == "master" ]; then bundle exec rubocop -D; fi
-  - rm Gemfile.lock
 
 before_deploy:
   - gem install dpl
