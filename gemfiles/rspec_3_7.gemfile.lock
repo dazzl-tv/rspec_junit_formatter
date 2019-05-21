@@ -65,7 +65,7 @@ DEPENDENCIES
   rake (~> 12.3, >= 12.3.2)
   rspec (~> 3.7.0)
   rspec_junit_formatter_bitbucket!
-  rubocop (~> 0.69.0)
+  rubocop
   rubocop-rspec (~> 1.33)
 
 BUNDLED WITH
