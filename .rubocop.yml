@@ -2,12 +2,15 @@
 
 require: rubocop-rspec
 
+AllCops:
+  TargetRubyVersion: 2.4
 
 # Metrics
 Metrics/BlockLength:
   Exclude:
     - example/**/*
     - spec/**/*
+    - rspec-junit-formatter-bitbucket.gemspec
 
 Metrics/LineLength:
   Exclude:

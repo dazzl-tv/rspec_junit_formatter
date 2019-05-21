@@ -21,7 +21,7 @@ ensure
   ::Process.wait pid
 end
 
-# rubocop:disable Metrics/MethodLength, Style/RedundantBegin
+# rubocop:disable Metrics/MethodLength
 def safe_pty(command, directory)
   sio = StringIO.new
   begin
@@ -39,4 +39,4 @@ def safe_pty(command, directory)
   end
   sio.string
 end
-# rubocop:enable Metrics/MethodLength, Style/RedundantBegin
+# rubocop:enable Metrics/MethodLength
