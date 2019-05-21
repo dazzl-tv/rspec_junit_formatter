@@ -29,6 +29,7 @@ before_install:
 script:
   - bundle exec rspec -f d
   - if [ "$TRAVIS_BRANCH" == "master" ]; then bundle exec rubocop -D; fi
+  - rm Gemfile.lock
 
 before_deploy:
   - gem install dpl
